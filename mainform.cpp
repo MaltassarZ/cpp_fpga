@@ -1,6 +1,8 @@
 #include "mainform.h"
 #include "ui_mainform.h"
 
+#include <thread>
+
 MainForm::MainForm(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainForm)
@@ -9,6 +11,7 @@ MainForm::MainForm(QWidget *parent)
 
     ui->frame->setStyleSheet("background-color: green;");
     ui->frame_3->setStyleSheet("background-color: green;");
+
 }
 
 MainForm::~MainForm()
@@ -16,3 +19,7 @@ MainForm::~MainForm()
     delete ui;
 }
 
+void MainForm::init()
+{
+
+}

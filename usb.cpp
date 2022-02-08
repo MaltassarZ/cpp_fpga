@@ -1,9 +1,6 @@
 #include "usb.h"
-#include <windows.h>
-#include <iostream>
-using namespace std;
 
-HANDLE hSerial;
+using namespace std;
 
 Usb::Usb()
 {
@@ -13,9 +10,9 @@ Usb::Usb()
 void Usb::init()
 {
     LPCTSTR sPortName = L"COM1";
-    hSerial = ::CreateFile(sPortName,GENERIC_READ |
+    m_hSerial = ::CreateFile(sPortName,GENERIC_READ |
                            GENERIC_WRITE,0,0,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,0);
-    if(hSerial==INVALID_HANDLE_VALUE)
+    if(m_hSerial==INVALID_HANDLE_VALUE)
     {
             if(GetLastError()==ERROR_FILE_NOT_FOUND)
         {
@@ -25,7 +22,7 @@ void Usb::init()
     }
     DCB dcbSerialParams = {0};
     dcbSerialParams.DCBlength=sizeof(dcbSerialParams);
-    if (!GetCommState(hSerial, &dcbSerialParams))
+    if (!GetCommState(m_hSerial, &dcbSerialParams))
     {
         cout << "getting state error\n";
     }
@@ -33,7 +30,7 @@ void Usb::init()
     dcbSerialParams.ByteSize=8;
     dcbSerialParams.StopBits=ONESTOPBIT;
     dcbSerialParams.Parity=NOPARITY;
-    if(!SetCommState(hSerial, &dcbSerialParams))
+    if(!SetCommState(m_hSerial, &dcbSerialParams))
     {
         cout << "error setting serial port state\n";
     }
@@ -42,9 +39,12 @@ void Usb::init()
 
 }
 
-void Usb::startWork()
+void Usb::work()
 {
-
+    while (1)
+    {
+        int i = 0;
+    }
 }
 
 void Usb::ReadCOM()
@@ -53,7 +53,7 @@ void Usb::ReadCOM()
       char sReceivedChar;
       while (true)
       {
-            ReadFile(hSerial, &sReceivedChar, 1, &iSize, 0);  // получаем 1 байт
+            ReadFile(m_hSerial, &sReceivedChar, 1, &iSize, 0);  // получаем 1 байт
             if (iSize > 0)   // если что-то принято, выводим
                 cout << sReceivedChar;
       }

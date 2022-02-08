@@ -2,6 +2,7 @@
 #define MAINFORM_H
 
 #include <QMainWindow>
+#include "usb.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainForm; }
@@ -14,8 +15,10 @@ class MainForm : public QMainWindow
 public:
     MainForm(QWidget *parent = nullptr);
     ~MainForm();
+    void init();
 
 private:
     Ui::MainForm *ui;
+    Usb m_usb;
 };
 #endif // MAINFORM_H
