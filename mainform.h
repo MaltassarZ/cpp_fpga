@@ -20,5 +20,7 @@ public:
 private:
     Ui::MainForm *ui;
     Usb m_usb;
+
+    void work();
 };
 #endif // MAINFORM_H

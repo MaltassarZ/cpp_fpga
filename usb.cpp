@@ -39,11 +39,11 @@ void Usb::init()
 
 }
 
-void Usb::work()
+void Usb::startWork()
 {
     while (1)
     {
-        int i = 0;
+        ReadCOM();
     }
 }
 
@@ -51,10 +51,25 @@ void Usb::ReadCOM()
 {
       DWORD iSize;
       char sReceivedChar;
-      while (true)
+      //while (true)
       {
             ReadFile(m_hSerial, &sReceivedChar, 1, &iSize, 0);  // получаем 1 байт
             if (iSize > 0)   // если что-то принято, выводим
-                cout << sReceivedChar;
+                //cout << sReceivedChar;
+                m_comText.push_back(sReceivedChar);
       }
+}
+
+bool Usb::getString(std::string &strOut)
+{
+    if (!m_comText.empty())
+    {
+        strOut = m_comText;
+        m_comText.clear();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }

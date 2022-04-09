@@ -9,9 +9,11 @@ class Usb
 public:
     Usb();
     void init();
-    void work();
+    void startWork();
+    bool getString(std::string &strOut);
 private:
     HANDLE m_hSerial;
+    std::string m_comText;
 
     void ReadCOM();
 };

@@ -15,13 +15,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+DESTDIR = ../bin
+
+LIBS += -lgdi32
+LIBS += -lwsock32
+LIBS += -lws2_32
+
 SOURCES += \
+    fpga_handler.cpp \
     main.cpp \
     mainform.cpp \
+    sockets.cpp \
+    udp_listener.cpp \
     usb.cpp
 
 HEADERS += \
+    fpga_handler.h \
     mainform.h \
+    sockets.h \
+    udp_listener.h \
     usb.h
 
 FORMS += \

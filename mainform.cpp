@@ -1,6 +1,6 @@
 #include "mainform.h"
 #include "ui_mainform.h"
-
+#include "usb.h"
 #include <thread>
 
 MainForm::MainForm(QWidget *parent)
@@ -9,8 +9,8 @@ MainForm::MainForm(QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->frame->setStyleSheet("background-color: green;");
-    ui->frame_3->setStyleSheet("background-color: green;");
+    init();
+    work();
 
 }
 
@@ -21,5 +21,11 @@ MainForm::~MainForm()
 
 void MainForm::init()
 {
+    m_usb.init();
+}
 
+void MainForm::work()
+{
+    std::thread t([&](){m_usb.startWork();});
+    t.join();
 }
